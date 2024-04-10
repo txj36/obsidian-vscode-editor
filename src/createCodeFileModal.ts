@@ -69,13 +69,20 @@ export class CreateCodeFileModal extends Modal {
 			return;
 		}
 
+		var fileData = "";
+		if (this.fileExtension == "drawio.svg") {
+			fileData = '<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1px" height="1px" viewBox="-0.5 -0.5 1 1" content="&lt;mxfile&gt;&lt;diagram id=&quot;412Slrum3qhfrmGuF0K3&quot; name=&quot;Page-1&quot;&gt;dZE9D4MgEIZ/DbtC0upsbbt0cuhM4Cok6Bmk0fbXVwNWie1C7n3e+4CDsKIZL5Z36oYSDKGJHAk7EUozNh2zfnnN8tSD2mrp0QZU+g0BJoE+tYQ+SnSIxukuhgLbFoSLGLcWhzjtgSae2vEadqAS3OzpXUunAk0P+WpcQdcqjM7o0RsNX5LDS3rFJQ4bxErCCovofNSMBZh5dctefN35j/u9mIXW/SiYgrX3JKL/YeUH&lt;/diagram&gt;&lt;/mxfile&gt;"> <defs/> <g/> </svg>'
+		}
+
 		const newFile = await this.app.vault.create(
 			newPath,
-			"",
+			fileData,
 			{}
 		);
-		const leaf = this.app.workspace.getLeaf(true);
-		leaf.openFile(newFile);
+		if (this.fileExtension != "drawio.svg") {
+			const leaf = this.app.workspace.getLeaf(true);
+			leaf.openFile(newFile);
+		}
 	}
 
 	onClose() {
